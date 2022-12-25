@@ -23,6 +23,8 @@ public class PlaintextToHtmlConverter {
         return new String(Files.readAllBytes(Paths.get("sample.txt")));
     }
 
+
+
     private String basicHtmlEncode(String source) {
         this.source = source;
         i = 0;
@@ -31,49 +33,50 @@ public class PlaintextToHtmlConverter {
         characterToConvert = stashNextCharacterAndAdvanceThePointer();
 
         while (i <= this.source.length()) {
-            switch (characterToConvert) {
-                case "<":
-                    convertedLine.add("&lt;");
-                    break;
-                case ">":
-                    convertedLine.add("&gt;");
-                    break;
-                case "&":
-                    convertedLine.add("&amp;");
-                    break;
-                case "\n":
-                    addANewLine();
-                    break;
-                default:
-                    pushACharacterToTheOutput();
+
+            for(Character c : Character.values()){
+                if(characterToConvert.equals(c.symbol)) {
+                    convertedLine.add(c.output);
+                }
+                
             }
+
+            if(checkIfNotInEnum(characterToConvert) == false){
+                convertedLine.add(characterToConvert);
+            }
+
 
             if (i >= source.length()) break;
 
             characterToConvert = stashNextCharacterAndAdvanceThePointer();
         }
+        
         addANewLine();
         String finalResult = String.join("<br />", result);
         return finalResult;
     }
 
-    //pick the character from source string
-    //and increment the pointer
+
     private String stashNextCharacterAndAdvanceThePointer() {
         char c = source.charAt(i);
         i += 1;
         return String.valueOf(c);
     }
 
-    //stringfy convertedLine array and push into result
-    //reset convertedLine
     private void addANewLine() {
         String line = String.join("", convertedLine);
         result.add(line);
         convertedLine = new ArrayList<>();
     }
 
-    private void pushACharacterToTheOutput() {
-        convertedLine.add(characterToConvert);
+    private boolean checkIfNotInEnum(String input){
+       
+        for(Character c : Character.values()){
+            if(input.equals(c.symbol)){
+                return true;
+            }
+        }
+
+        return false;
     }
 }
