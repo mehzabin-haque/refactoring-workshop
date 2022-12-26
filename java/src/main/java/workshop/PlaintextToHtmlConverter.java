@@ -7,11 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlaintextToHtmlConverter {
-    String source;
-    int i;
-    List<String> result;
-    List<String> convertedLine;
-    String characterToConvert;
+    String filePath = "sample.txt";
 
     public String toHtml() throws Exception {
         String text = read();
@@ -20,50 +16,40 @@ public class PlaintextToHtmlConverter {
     }
 
     protected String read() throws IOException {
-        return new String(Files.readAllBytes(Paths.get("sample.txt")));
+        return new String(Files.readAllBytes(Paths.get(this.filePath)));
     }
 
-
-
     private String basicHtmlEncode(String source) {
-        this.source = source;
-        i = 0;
-        result = new ArrayList<>();
-        convertedLine = new ArrayList<>();
-        characterToConvert = stashNextCharacterAndAdvanceThePointer();
-
-        while (i <= this.source.length()) {
+        
+        List<String> result = new ArrayList<>();
+        List<String> convertedLine = new ArrayList<>();
+        
+       for(int i=0;i < source.length();i++) {
+        
+            String characterToConvert = stashNextCharacterAndAdvanceThePointer(source,i);
 
             for(Character c : Character.values()){
                 if(characterToConvert.equals(c.symbol)) {
                     convertedLine.add(c.output);
-                }
-                
+                } 
             }
-
             if(checkIfNotInEnum(characterToConvert) == false){
                 convertedLine.add(characterToConvert);
             }
-
-
-            if (i >= source.length()) break;
-
-            characterToConvert = stashNextCharacterAndAdvanceThePointer();
         }
         
-        addANewLine();
+        addANewLine(result,convertedLine);
         String finalResult = String.join("<br />", result);
         return finalResult;
     }
 
 
-    private String stashNextCharacterAndAdvanceThePointer() {
-        char c = source.charAt(i);
-        i += 1;
+    private String stashNextCharacterAndAdvanceThePointer(String source,int pos) {
+        char c = source.charAt(pos);
         return String.valueOf(c);
     }
 
-    private void addANewLine() {
+    private void addANewLine(List<String> result,List<String> convertedLine) {
         String line = String.join("", convertedLine);
         result.add(line);
         convertedLine = new ArrayList<>();
