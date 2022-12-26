@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class TriviaGame {
-    ArrayList players = new ArrayList();
-    int[] places = new int[6];
-    int[] purses = new int[6];
-    boolean[] inPenaltyBox = new boolean[6];
+    private ArrayList<String> players = new ArrayList<>();
+    int limits = 6;
+    int[] places = new int[limits];
+    int[] purses = new int[limits];
+    boolean[] inPenaltyBox = new boolean[limits];
 
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    LinkedList<String> popQuestions = new LinkedList<>();
+    LinkedList<String> scienceQuestions = new LinkedList<>();
+    LinkedList<String> sportsQuestions = new LinkedList<>();
+    LinkedList<String> rockQuestions = new LinkedList<>();
 
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
@@ -34,8 +35,7 @@ public class TriviaGame {
         return (howManyPlayers() >= 2);
     }
 
-    public boolean add(String playerName) {
-
+    public void add(String playerName) {
 
         players.add(playerName);
         places[howManyPlayers()] = 0;
@@ -44,7 +44,7 @@ public class TriviaGame {
 
         announce(playerName + " was added");
         announce("They are player number " + players.size());
-        return true;
+        
     }
 
     public int howManyPlayers() {
@@ -100,16 +100,15 @@ public class TriviaGame {
 
 
     private String currentCategory() {
-        if (places[currentPlayer] == 0) return "Pop";
-        if (places[currentPlayer] == 4) return "Pop";
-        if (places[currentPlayer] == 8) return "Pop";
-        if (places[currentPlayer] == 1) return "Science";
-        if (places[currentPlayer] == 5) return "Science";
-        if (places[currentPlayer] == 9) return "Science";
-        if (places[currentPlayer] == 2) return "Sports";
-        if (places[currentPlayer] == 6) return "Sports";
-        if (places[currentPlayer] == 10) return "Sports";
-        return "Rock";
+    
+        for (Category c : Category.values()) {
+            if ((places[currentPlayer]-c.val)%4==0){
+                return  c.type;
+            }
+        }
+
+        return Category.ROCK.type;
+       
     }
 
     public boolean wasCorrectlyAnswered() {
@@ -162,7 +161,7 @@ public class TriviaGame {
     }
 
     private boolean didPlayerWin() {
-        return !(purses[currentPlayer] == 6);
+        return purses[currentPlayer] != limits;
     }
 
     protected void announce(Object message) {
