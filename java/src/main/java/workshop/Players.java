@@ -5,12 +5,12 @@ import java.util.LinkedList;
 
 public class Players {
 
-    ArrayList players = new ArrayList();
-    int[] places = new int[6];
-    int[] purses = new int[6];
-    boolean[] inPenaltyBox = new boolean[6];
-    int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
+   private ArrayList<String> players = new ArrayList<>();
+    int limits = 6;
+    int[] places = new int[limits];
+    int[] purses = new int[limits];
+    boolean[] inPenaltyBox = new boolean[limits];
+
 
     TriviaGame triviaGame = new TriviaGame();
 
@@ -23,7 +23,7 @@ public class Players {
     }
 
     private boolean didPlayerWin() {
-        return !(purses[currentPlayer] == 6);
+        return !(purses[currentPlayer] == limits);
     }
     
     private boolean getWinningStatus() {
