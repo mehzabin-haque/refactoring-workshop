@@ -151,7 +151,5 @@ public class TriviaGame {
         return purses[currentPlayer] != limits;
     }
 
-    protected void announce(Object message) {
-        System.out.println(message);
-    }
+   
 }
