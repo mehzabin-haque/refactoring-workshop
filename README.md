@@ -20,9 +20,9 @@ Defined the type of every list.
 Inappropriate naming: renamed 'add' and 'roll' method
 Long method: Used enum Category to refactor the long method and if-else ladder in ‘currentCategory’ method.
 Other long methods are : penaltyBoxAction,add,roll,currentCategory, wasCorrectlyAnswered,wrongAnswer
-reate extracted methods named 'resetPlayerLocationAndAskQuestion', 'getWinningStatus' for roll','wasCorrectlyAnswered' 
+Extracted methods named 'resetPlayerLocationAndAskQuestion','getWinningStatus' for 'roll' and 'wasCorrectlyAnswered' methods. Others were solved by removing the duplication part and method extraction.
 Feature Envy :Most the method were about players info, player location etc. which was more relevant to Players Class. Also, Trivia is QnA Game, so the methods related to Questions are kept in Trivia Class. We also kept 'wasCorrectlyAnswer' and 'wrongAnswer' methods in player as it frequently access the data for Players class. Therefore, these methods are much relevant for Players class
-Duplicate code: many code snippet was repeated in 'roll()', 'wasCorrectlyAnswered()', 'askQuestion()' methods, they used large if-else ladder]method extraction for askQuestion() method to 'updateQuestionSet()' 
+Duplicate code: Many code snippet was repeated in 'roll','wasCorrectlyAnswered','askQuestion' methods,they used large if-else ladder(switch case smell)  which was solved by method extraction name 'updateQ' 
 
 
 
