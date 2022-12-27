@@ -35,7 +35,7 @@ public class TriviaGame {
         return (howManyPlayers() >= 2);
     }
 
-    public void add(String playerName) {
+     public boolean addPlayersAndDetails(String playerName) {
 
         players.add(playerName);
         places[howManyPlayers()] = 0;
@@ -44,7 +44,7 @@ public class TriviaGame {
 
         announce(playerName + " was added");
         announce("They are player number " + players.size());
-        
+        return true;
     }
 
     public int howManyPlayers() {
@@ -80,6 +80,17 @@ public class TriviaGame {
         if (currentCategory().equals(category))
             player.announce(questionSet.removeFirst());
     }
+    
+     private void resetPlayerLocationAndAskQuestion(int roll) {
+        places[currentPlayer] = places[currentPlayer] + roll;
+        if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+
+        announce(players.get(currentPlayer)
+                + "'s new location is "
+                + places[currentPlayer]);
+        announce("The category is " + triviaGame.currentCategory());
+        triviaGame.askQuestion();
+    }
 
     private String currentCategory() {
     
@@ -91,6 +102,22 @@ public class TriviaGame {
 
         return Category.ROCK.type;
        
+    }
+    
+    
+    private boolean getWinningStatus() {
+        announce("Answer was correct!!!!");
+        purses[currentPlayer]++;
+        announce(players.get(currentPlayer)
+                + " now has "
+                + purses[currentPlayer]
+                + " Gold Coins.");
+
+        boolean winner = didPlayerWin();
+        currentPlayer++;
+        if (currentPlayer == players.size()) currentPlayer = 0;
+
+        return winner;
     }
 
      public boolean wasCorrectlyAnswered() {
