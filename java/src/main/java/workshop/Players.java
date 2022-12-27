@@ -26,7 +26,7 @@ public class Players {
         return !(purses[currentPlayer] == limits);
     }
     
-    private boolean getWinningStatus() {
+    private boolean WinningStatus() {
         announce("Answer was correct!!!!");
         purses[currentPlayer]++;
         announce(players.get(currentPlayer)
@@ -41,7 +41,7 @@ public class Players {
         return winner;
     }
 
-    public void rollPlayerLocation(int roll) {
+    public void PlayerPositionAndRoll(int roll) {
         announce(players.get(currentPlayer) + " is the current player");
         announce("They have rolled a " + roll);
 
@@ -49,17 +49,17 @@ public class Players {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
                 announce(players.get(currentPlayer) + " is getting out of the penalty box");
-                resetPlayerLocationAndAskQuestion(roll);
+                PlayerLocationResetAndAskQuestion(roll);
 
             } else {
                 announce(players.get(currentPlayer) + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
 
-        } else resetPlayerLocationAndAskQuestion(roll);
+        } else PlayerLocationResetAndAskQuestion(roll);
     }
 
-    private void resetPlayerLocationAndAskQuestion(int roll) {
+    private void PlayerLocationResetAndAskQuestion(int roll) {
         places[currentPlayer] = places[currentPlayer] + roll;
         if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
