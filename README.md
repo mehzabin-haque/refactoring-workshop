@@ -19,7 +19,7 @@ Smells are : long method, switch case, large class,duplicate method,inappropriat
 Defined the type of every list.
 Long method: Used enum Category to refactor the long method and if-else ladder in ‘currentCategory’ method.
 Other long methods are : penaltyBoxAction,add,roll,currentCategory, wasCorrectlyAnswered,wrongAnswer
-Extracted methods named 'resetPlayerLocationAndAskQuestion','getWinningStatus' for 'roll' and 'wasCorrectlyAnswered' methods. Others were solved by removing the duplication part and method extraction.
+Extracted methods named 'PlayerLocationResetAndAskQuestion','WinningStatus' for 'roll' and 'wasCorrectlyAnswered' methods. Others were solved by removing the duplication part and method extraction.
 Feature Envy :Seperated two classes named Players and TrivialGame were created to seperate their responsibilities. 
 Duplicate code: Many code snippet was duplicated in 'roll','wasCorrectlyAnswered','askQuestion' methods,they used large if-else ladder(switch case smell)  which was solved by method extraction name 'updateQuestionSet' 
 Inappropriate naming: renamed 'add' and 'roll' method
